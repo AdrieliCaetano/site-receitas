@@ -15,7 +15,7 @@ class ReceitaViewSet(ModelViewSet):
 
 class IngredienteViewSet(ModelViewSet):
     queryset = Ingrediente.objects.all()
-    serializer_class = ReceitaSerializer
+    serializer_class = IngredienteSerializer
 
 class Ingredientes_receitaViewSet(ModelViewSet):
     queryset = IngredientesReceita.objects.all()

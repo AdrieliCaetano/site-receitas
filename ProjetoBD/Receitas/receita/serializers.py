@@ -9,15 +9,15 @@ class ReceitaSerializer(serializers.ModelSerializer):
 class IngredienteSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Ingrediente
-        fields = ('nome_ingrediente')
+        fields = '__all__'
 
 class IngredientesReceitaSerializer(serializers.ModelSerializer):
     class Meta:
         model = IngredientesReceita
     
-        fields = ('id', 'receita', 'ingrediente', 'qtd')
+        fields = ('receita', 'ingrediente', 'qtd')
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ('nome')
+        fields = '__all__'
