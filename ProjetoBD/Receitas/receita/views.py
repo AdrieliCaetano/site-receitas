@@ -4,14 +4,18 @@
 #from django.template import loader
 
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
+#from rest_framework.response import Response
 
 from .models import Receita, Ingrediente, IngredientesReceita, Categoria
-from .serializers import ReceitaSerializer, IngredienteSerializer, IngredientesReceitaSerializer, CategoriaSerializer
+from django.contrib.auth.models import User
+from .serializers import ReceitaSerializer, IngredienteSerializer, IngredientesReceitaSerializer, CategoriaSerializer, UserSerializer
 
 class ReceitaViewSet(ModelViewSet):
     queryset = Receita.objects.all()
     serializer_class = ReceitaSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(autor=self.request.user)
 
 class IngredienteViewSet(ModelViewSet):
     queryset = Ingrediente.objects.all()
@@ -25,6 +29,9 @@ class CategoriaViewSet(ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 
