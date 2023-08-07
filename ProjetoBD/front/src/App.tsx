@@ -3,10 +3,14 @@ import Cupcake from "./assets/cupcake-inicio.jpg"
 import * as Dialog from "@radix-ui/react-dialog"
 import "./styles/main.css"
 import AddReceitaModal from "./components/AddReceitaModal"
+import * as RadioGroup from "@radix-ui/react-radio-group"
+import ReceitaCard from "./components/RaceitaCard"
 
 function App() {
   const [open, setOpen] = useState(false)
+  const [filtro, setFiltro] = useState("")
 
+  console.log(filtro)
   return (
     <>
       <div className="bg-[#fc939a] h-screen grid grid-cols-2 p-10 gap-10">
@@ -26,19 +30,89 @@ function App() {
           <img className="w-[70%] rounded-[30%]" src={Cupcake} alt="" />
         </div>
       </div>
-      <div className="bg-yellow-100 h-screen flex flex-row gap-8 py-10">
-        <div className="flex flex-col bg-red-500/20 w-[20%] p-3 items-center gap-10">
-          <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger className="bg-[#fc939a] py-4 w-3/4 uppercase font-bold hover:bg-[#ff767f] text-white">
-              Adicionar Receita
-            </Dialog.Trigger>
+      <div className="bg-yellow-100 h-fit flex flex-row gap-8 p-8">
+        <div className="flex flex-col w-[20%] items-center gap-3">
+          <div className="flex flex-col w-full items-center gap-3">
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+              <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                Adicionar Chef
+              </Dialog.Trigger>
 
-            <AddReceitaModal />
+              <AddReceitaModal />
+            </Dialog.Root>
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+              <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                Adicionar Receita
+              </Dialog.Trigger>
 
-          </Dialog.Root>
-          <p>Tipos de Refeição:</p>
+              <AddReceitaModal />
+            </Dialog.Root>
+          </div>
+          <div className="bg-[#fc939a] w-full h-fit px-5 py-8 rounded-md text-white text-xl">
+            <p className="font-bold mb-5 uppercase border-b-2 text-center">Tipos de Refeição</p>
+            <div className="flex flex-col gap-3">
+              <div>
+                <input
+                  type="radio"
+                  name="tipo"
+                  value="Todas"
+                  onClick={() => setFiltro("Todas")}
+                />{" "}
+                Todas
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="tipo"
+                  value="Almoço/Jantar"
+                  onClick={() => setFiltro("Almoço/Jantar")}
+                />{" "}
+                Almoço/Jantar
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="tipo"
+                  value="Bebidas"
+                  onClick={() => setFiltro("Bebidas")}
+                />{" "}
+                Bebidas
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="tipo"
+                  value="Café/Lanches"
+                  onClick={() => setFiltro("Café/Lanches")}
+                />{" "}
+                Café/Lanches
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="tipo"
+                  value="Sobremesas"
+                  onClick={() => setFiltro("Sobremesas")}
+                />{" "}
+                Sobremesas
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-3 bg-blue-500/20 w-[80%]">teste</div>
+        <div className="grid grid-cols-3 bg-[#fc939a] w-[80%] h-fit gap-10 p-10 rounded-md">
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+          <ReceitaCard />
+        </div>
       </div>
     </>
   )
