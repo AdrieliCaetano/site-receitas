@@ -3,11 +3,14 @@ import Cupcake from "./assets/cupcake-inicio.jpg"
 import * as Dialog from "@radix-ui/react-dialog"
 import "./styles/main.css"
 import AddReceitaModal from "./components/AddReceitaModal"
-import * as RadioGroup from "@radix-ui/react-radio-group"
 import ReceitaCard from "./components/RaceitaCard"
+import AddUsuarioModal from "./components/AddUsuarioModal"
+import AddCategoriaModal from "./components/AddCategoriaModal"
 
 function App() {
-  const [open, setOpen] = useState(false)
+  const [openCategoria, setOpenCategoria] = useState(false)
+  const [openReceita, setOpenReceita] = useState(false)
+  const [openUsuario, setOpenUsuario] = useState(false)
   const [filtro, setFiltro] = useState("")
 
   console.log(filtro)
@@ -17,7 +20,7 @@ function App() {
         <div className="flex flex-col text-start justify-center w-full h-full">
           <div className="flex flex-col h-[80%] justify-center px-10 text-white">
             <p className="text-6xl mb-4 font-bold font-serif">
-              De tudo um pouco
+              Chef na Web
             </p>
             <p className="text-6xl mb-8 font-bold font-serif">Receitas</p>
             <p className="text-xl">
@@ -33,14 +36,21 @@ function App() {
       <div className="bg-yellow-100 h-fit flex flex-row gap-8 p-8">
         <div className="flex flex-col w-[20%] items-center gap-3">
           <div className="flex flex-col w-full items-center gap-3">
-            <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Root open={openCategoria} onOpenChange={setOpenCategoria}>
               <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
-                Adicionar Chef
+                Adicionar Categoria
               </Dialog.Trigger>
 
-              <AddReceitaModal />
+              <AddCategoriaModal />
             </Dialog.Root>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
+              <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                Adicionar Usuário
+              </Dialog.Trigger>
+
+              <AddUsuarioModal />
+            </Dialog.Root>
+            <Dialog.Root open={openReceita} onOpenChange={setOpenReceita}>
               <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
                 Adicionar Receita
               </Dialog.Trigger>
@@ -49,7 +59,7 @@ function App() {
             </Dialog.Root>
           </div>
           <div className="bg-[#fc939a] w-full h-fit px-5 py-8 rounded-md text-white text-xl">
-            <p className="font-bold mb-5 uppercase border-b-2 text-center">Tipos de Refeição</p>
+            <p className="font-bold mb-5 uppercase border-b-2 text-center">Filtrar por categoria</p>
             <div className="flex flex-col gap-3">
               <div>
                 <input
