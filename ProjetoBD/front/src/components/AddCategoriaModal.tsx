@@ -1,11 +1,22 @@
 import * as Dialog from "@radix-ui/react-dialog"
+import axios from "axios"
+import { useEffect } from "react"
 import {useForm} from "react-hook-form"
 
 function AddCategoriaModal() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async (data: any) => {
-    console.log(data)
+    try {
+      axios
+        .post("http://127.0.0.1:5000/categorias", data)
+        .then((response) => response.data)
+        .then((data) => alert(`Categoria ${data.nome_categoria} criada com sucesso.`))
+    } catch (error) {
+      throw new Error(`Erro no back-end.\n${error}`);
+    } finally {
+      reset()
+    }
   }
 
   return (
