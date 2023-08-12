@@ -1,17 +1,27 @@
-import {useState} from "react"
+import {useState, Suspense, lazy, useEffect} from "react"
 import Cupcake from "./assets/cupcake-inicio.jpg"
 import * as Dialog from "@radix-ui/react-dialog"
 import "./styles/main.css"
-import AddReceitaModal from "./components/AddReceitaModal"
 import ReceitaCard from "./components/RaceitaCard"
 import AddUsuarioModal from "./components/AddUsuarioModal"
 import AddCategoriaModal from "./components/AddCategoriaModal"
+import axios from "axios"
+
+const LazyAddReceitaModal = lazy(() => import("./components/AddReceitaModal"))
 
 function App() {
   const [openCategoria, setOpenCategoria] = useState(false)
   const [openReceita, setOpenReceita] = useState(false)
   const [openUsuario, setOpenUsuario] = useState(false)
+  const [categorias, setCategorias] = useState([])
   const [filtro, setFiltro] = useState("")
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/categorias")
+      .then((response) => response.data)
+      .then((data) => setCategorias(data))
+  }, [])
 
   console.log(filtro)
   return (
@@ -19,9 +29,7 @@ function App() {
       <div className="bg-[#fc939a] h-screen grid grid-cols-2 p-10 gap-10">
         <div className="flex flex-col text-start justify-center w-full h-full">
           <div className="flex flex-col h-[80%] justify-center px-10 text-white">
-            <p className="text-6xl mb-4 font-bold font-serif">
-              Chef na Web
-            </p>
+            <p className="text-6xl mb-4 font-bold font-serif">Chef na Web</p>
             <p className="text-6xl mb-8 font-bold font-serif">Receitas</p>
             <p className="text-xl">
               Em nosso site você encontra de tudo um pouco: doces, bebidas,
@@ -55,11 +63,17 @@ function App() {
                 Adicionar Receita
               </Dialog.Trigger>
 
-              <AddReceitaModal />
+              {openReceita && (
+                <Suspense>
+                  <LazyAddReceitaModal categorias={categorias} />
+                </Suspense>
+              )}
             </Dialog.Root>
           </div>
           <div className="bg-[#fc939a] w-full h-fit px-5 py-8 rounded-md text-white text-xl">
-            <p className="font-bold mb-5 uppercase border-b-2 text-center">Filtrar por categoria</p>
+            <p className="font-bold mb-5 uppercase border-b-2 text-center">
+              Filtrar por categoria
+            </p>
             <div className="flex flex-col gap-3">
               <div>
                 <input
@@ -70,42 +84,19 @@ function App() {
                 />{" "}
                 Todas
               </div>
-              <div>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="Almoço/Jantar"
-                  onClick={() => setFiltro("Almoço/Jantar")}
-                />{" "}
-                Almoço/Jantar
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="Bebidas"
-                  onClick={() => setFiltro("Bebidas")}
-                />{" "}
-                Bebidas
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="Café/Lanches"
-                  onClick={() => setFiltro("Café/Lanches")}
-                />{" "}
-                Café/Lanches
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="tipo"
-                  value="Sobremesas"
-                  onClick={() => setFiltro("Sobremesas")}
-                />{" "}
-                Sobremesas
-              </div>
+              {categorias.map((categoria) => {
+                return (
+                  <div>
+                    <input
+                      type="radio"
+                      name="tipo"
+                      value={categoria["nome_categoria"]}
+                      onClick={() => setFiltro(categoria["nome_categoria"])}
+                    />{" "}
+                    {categoria["nome_categoria"]}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>

@@ -1,7 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog"
 import {useForm} from "react-hook-form"
 
-function AddReceitaModal() {
+interface AddReceitaModalProps {
+  categorias: {nome_categoria: string}[]
+}
+
+function AddReceitaModal(props: AddReceitaModalProps) {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async (data: any) => {
@@ -86,15 +90,11 @@ function AddReceitaModal() {
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
-                    <option value="Almoço/Jantar">Almoço/Jantar</option>
-                    <option value="Bebidas">Bebidas</option>
-                    <option value="Café/Lanches">Café/Lanches</option>
-                    <option value="Sobremesas">Sobremesas</option>
-                    {/* {instituicoes.map((inst) => (
-                    <option key={inst["nome"]} value={inst["nome"]}>
-                      {inst["nome"]}
+                    {props.categorias.map((categoria) => (
+                    <option key={categoria["nome_categoria"]} value={categoria["nome_categoria"]}>
+                      {categoria["nome_categoria"]}
                     </option>
-                  ))} */}
+                  ))}
                   </select>
                 </div>
               </div>
