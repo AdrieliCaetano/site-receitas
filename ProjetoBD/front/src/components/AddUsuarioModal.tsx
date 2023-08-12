@@ -1,11 +1,23 @@
 import * as Dialog from "@radix-ui/react-dialog"
+import axios from "axios"
 import {useForm} from "react-hook-form"
 
 function AddUsuarioModal() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async (data: any) => {
-    console.log(data)
+    try {
+      axios
+        .post("http://127.0.0.1:5000/usuarios", data)
+        .then((response) => response.data)
+        .then(() =>
+          alert(`Usuário criado com sucesso.`)
+        )
+    } catch (error) {
+      throw new Error(`Erro no back-end.\n${error}`)
+    } finally {
+      reset()
+    }
   }
 
   return (

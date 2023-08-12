@@ -1,6 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog"
 import axios from "axios"
-import { useEffect } from "react"
 import {useForm} from "react-hook-form"
 
 function AddCategoriaModal() {
