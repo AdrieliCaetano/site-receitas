@@ -29,7 +29,7 @@ function App() {
       <div className="bg-[#fc939a] h-screen grid grid-cols-2 p-10 gap-10">
         <div className="flex flex-col text-start justify-center w-full h-full">
           <div className="flex flex-col h-[80%] justify-center px-10 text-white">
-            <p className="text-6xl mb-4 font-bold font-serif">Chef na Web</p>
+            <p className="text-7xl mb-4 font-bold font-serif border-b-[6px] border-white pb-3 w-fit">Chef na Web</p>
             <p className="text-6xl mb-8 font-bold font-serif">Receitas</p>
             <p className="text-xl">
               Em nosso site você encontra de tudo um pouco: doces, bebidas,

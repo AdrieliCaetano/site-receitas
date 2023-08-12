@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import * as Dialog from "@radix-ui/react-dialog"
 import {useForm} from "react-hook-form"
+import axios from 'axios'
 
 interface AddReceitaModalProps {
   categorias: {nome_categoria: string}[]
@@ -7,10 +9,18 @@ interface AddReceitaModalProps {
 
 function AddReceitaModal(props: AddReceitaModalProps) {
   const {register, handleSubmit, reset} = useForm()
+  const [usuarios, setUsuarios] = useState([])
 
   const onSubmit = async (data: any) => {
     console.log(data)
   }
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/usuarios")
+      .then((response) => response.data)
+      .then((data) => setUsuarios(data))
+  }, [])
 
   return (
     <>
@@ -32,18 +42,18 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                     htmlFor=""
                     className="font-bold text-[16px] text-[#fc939a] uppercase"
                   >
-                    CHEF RESPONSÁVEL
+                    AUTOR
                   </label>
                   <select
-                    {...register("chef", {required: true})}
+                    {...register("autor", {required: true})}
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
-                    {/* {instituicoes.map((inst) => (
-                    <option key={inst["nome"]} value={inst["nome"]}>
-                      {inst["nome"]}
+                    {usuarios.map((usuario) => (
+                    <option key={usuario["username"]} value={usuario["username"]}>
+                      {usuario["nome"]} {usuario["sobrenome"]}
                     </option>
-                  ))} */}
+                  ))}
                   </select>
                 </div>
               </div>
@@ -58,7 +68,7 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   <input
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
-                    {...register("nome", {required: true})}
+                    {...register("nome_receita", {required: true})}
                   />
                 </div>
               </div>
@@ -73,7 +83,7 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   <input
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
-                    {...register("imagem", {required: true})}
+                    {...register("link_imagem", {required: true})}
                   />
                 </div>
               </div>
@@ -86,7 +96,7 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                     CATEGORIA
                   </label>
                   <select
-                    {...register("instituicao", {required: true})}
+                    {...register("categoria", {required: true})}
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
@@ -104,12 +114,12 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                     htmlFor=""
                     className="font-bold text-[16px] text-[#fc939a] uppercase"
                   >
-                    Duração (em minutos)
+                    Tempo de Preparo (em minutos)
                   </label>
                   <input
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
-                    {...register("duracao", {required: true})}
+                    {...register("tempo_preparo", {required: true})}
                   />
                 </div>
               </div>
@@ -153,10 +163,9 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   >
                     MODO DE PREPARO
                   </label>
-                  <input
-                    type="text"
+                  <textarea
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
-                    {...register("preparo", {required: true})}
+                    {...register("modo_preparo", {required: true})}
                   />
                 </div>
               </div>
