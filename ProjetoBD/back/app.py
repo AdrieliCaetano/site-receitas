@@ -61,6 +61,7 @@ class Database:
         self.cur.close()
         self.conn.close()
 
+# Alterar aqui com base nas informações do banco de dados criado e as configurações do PostgreSQL
 db = Database(dbname='receitadb', user='postgres', password='010203',host='localhost', port='5432')
 
 @app.route('/categorias', methods=['GET'])
