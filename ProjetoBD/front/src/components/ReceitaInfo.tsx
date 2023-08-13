@@ -1,6 +1,24 @@
 import * as Dialog from "@radix-ui/react-dialog"
 
-function ReceitaInfo() {
+interface ReceitaInfoProps {
+  nome_receita: string
+  tempo_preparo: number
+  modo_preparo: string
+  porcoes: number
+  link_imagem: string
+  categoria: string
+  autor_id: number
+}
+
+function ReceitaInfo(props: ReceitaInfoProps) {
+  console.log(props.modo_preparo)
+
+  const formataModo = () => {
+    const str = props.modo_preparo.split("\n")
+    return str
+  }
+
+  console.log(formataModo())
   return (
     <>
       <Dialog.Portal>
@@ -10,15 +28,30 @@ function ReceitaInfo() {
             Informações da Receita
           </Dialog.Title>
           <div className="grid grid-cols-2 gap-5 w-full h-[30rem]">
-            <div className="bg-red-500">
-              teste
+            <div className="flex flex-col gap-5 text-start text-[#fc939a] border-[3px] border-[#fc939a] p-3">
+              <p className="text-2xl uppercase font-bold text-center">
+                {props.nome_receita}
+              </p>
+              <div>
+                <p className="font-bold">Ingredientes</p>
+              </div>
+              <div>
+                <p className="font-bold">Modo de Preparo</p>
+                {formataModo().map((str) => {
+                  return <p>{str}</p>
+                })}
+              </div>
             </div>
-            <div className="bg-blue-500">
+            <div className="flex flex-col gap-10">
               <img
-                src="https://www.comidaereceitas.com.br/wp-content/uploads/2016/07/Feijoada-de-boteco-freepik.jpg"
+                src={props.link_imagem}
                 alt="Imagem"
-                className="rounded-md w-full"
+                className="rounded-md w-full h-[340px]"
               />
+              <div className="flex flex-col text-center text-xl font-bold text-[#fc939a]">
+                <p>Rende {props.porcoes} porções</p>
+                <p>Tempo de preparo: {props.tempo_preparo} minutos</p>
+              </div>
             </div>
           </div>
         </Dialog.Content>

@@ -10,9 +10,8 @@ function AddUsuarioModal() {
       axios
         .post("http://127.0.0.1:5000/usuarios", data)
         .then((response) => response.data)
-        .then(() =>
-          alert(`Usuário criado com sucesso.`)
-        )
+        .then(() => alert(`Usuário criado com sucesso.`))
+        .then(() => window.location.reload())
     } catch (error) {
       throw new Error(`Erro no back-end.\n${error}`)
     } finally {

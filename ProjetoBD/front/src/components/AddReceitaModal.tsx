@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import {useForm} from "react-hook-form"
-import axios from 'axios'
+import axios from "axios"
 
 interface AddReceitaModalProps {
   categorias: {nome_categoria: string}[]
@@ -12,7 +12,19 @@ function AddReceitaModal(props: AddReceitaModalProps) {
   const [usuarios, setUsuarios] = useState([])
 
   const onSubmit = async (data: any) => {
-    console.log(data)
+    // console.log(data)
+
+    try {
+      axios
+        .post("http://127.0.0.1:5000/receitas", data)
+        .then((response) => response.data)
+        .then(() => alert(`Receita criada com sucesso.`))
+        .then(() => window.location.reload())
+    } catch (error) {
+      throw new Error(`Erro no back-end.\n${error}`)
+    } finally {
+      reset()
+    }
   }
 
   useEffect(() => {
@@ -26,7 +38,7 @@ function AddReceitaModal(props: AddReceitaModalProps) {
     <>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/50 inset-0 fixed" />
-        <Dialog.Content className="fixed bg-yellow-100 py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[70rem] h-[38rem] shadow-lg shadow-black/25 overflow-auto">
+        <Dialog.Content className="fixed bg-yellow-100 py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[70rem] h-[38rem] shadow-lg shadow-black/25">
           <Dialog.Title className="text-[#fc939a] uppercase font-bold text-center text-2xl font-serif p-2 border-[3px] border-[#fc939a] mb-10">
             Adicionar Nova Receita
           </Dialog.Title>
@@ -50,10 +62,13 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   >
                     <option value=""></option>
                     {usuarios.map((usuario) => (
-                    <option key={usuario["username"]} value={usuario["username"]}>
-                      {usuario["nome"]} {usuario["sobrenome"]}
-                    </option>
-                  ))}
+                      <option
+                        key={usuario["username"]}
+                        value={(usuario["username"], usuario["id"])}
+                      >
+                        {usuario["nome"]} {usuario["sobrenome"]}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -101,10 +116,13 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   >
                     <option value=""></option>
                     {props.categorias.map((categoria) => (
-                    <option key={categoria["nome_categoria"]} value={categoria["nome_categoria"]}>
-                      {categoria["nome_categoria"]}
-                    </option>
-                  ))}
+                      <option
+                        key={categoria["nome_categoria"]}
+                        value={categoria["nome_categoria"]}
+                      >
+                        {categoria["nome_categoria"]}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -123,6 +141,8 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                   />
                 </div>
               </div>
+            </div>
+            <div>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-col mb-5">
                   <label
@@ -135,23 +155,6 @@ function AddReceitaModal(props: AddReceitaModalProps) {
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("porcoes", {required: true})}
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-col mb-5">
-                  <label
-                    htmlFor=""
-                    className="font-bold text-[16px] text-[#fc939a] uppercase"
-                  >
-                    INGREDIENTES
-                  </label>
-                  <input
-                    type="text"
-                    className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
-                    {...register("ingredientes", {required: true})}
                   />
                 </div>
               </div>
@@ -171,7 +174,10 @@ function AddReceitaModal(props: AddReceitaModalProps) {
               </div>
             </div>
 
-            <button className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#01141f]/50 shadow-md shadow-black/25 absolute right-0 bottom-4 uppercase">
+            <button
+              className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#01141f]/50 shadow-md shadow-black/25 absolute right-0 bottom-4 uppercase"
+              type="submit"
+            >
               Adicionar
             </button>
           </form>

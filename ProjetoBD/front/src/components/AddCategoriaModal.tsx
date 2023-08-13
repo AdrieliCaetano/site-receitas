@@ -10,7 +10,8 @@ function AddCategoriaModal() {
       axios
         .post("http://127.0.0.1:5000/categorias", data)
         .then((response) => response.data)
-        .then((data) => alert(`Categoria ${data.nome_categoria} criada com sucesso.`))
+        .then(() => alert(`Categoria criada com sucesso.`))
+        .then(() => window.location.reload())
     } catch (error) {
       throw new Error(`Erro no back-end.\n${error}`);
     } finally {
