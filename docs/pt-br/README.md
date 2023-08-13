@@ -8,6 +8,7 @@ Este projeto consiste em um sistema web voltado para a criação e publicação 
 - Flask
 - Node.js
 - React
+- PostgreSQL
 
   ## Documentação
 - [Domínio](domínio.md)
