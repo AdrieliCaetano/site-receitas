@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import axios from "axios"
 import {Pencil, Trash} from "@phosphor-icons/react"
 import EditCategoria from "./EditCategoria"
+import DeleteCategoria from "./DeleteCategoria"
 
 function ListCategorias() {
   const [categorias, setCategorias] = useState([])
@@ -38,7 +39,9 @@ function ListCategorias() {
                       >
                         <Pencil size={17} weight="bold" />
                       </Dialog.Trigger>
-                      <EditCategoria nome_categoria={categoria["nome_categoria"]} />
+                      <EditCategoria
+                        nome_categoria={categoria["nome_categoria"]}
+                      />
                     </Dialog.Root>
 
                     <Dialog.Root
@@ -51,10 +54,9 @@ function ListCategorias() {
                       >
                         <Trash size={17} weight="bold" />
                       </Dialog.Trigger>
-                      {/* <DeleteReceita
-                  receita_id={props.receita_id}
-                  nome_receita={props.nome_receita}
-                /> */}
+                      <DeleteCategoria
+                        nome_categoria={categoria["nome_categoria"]}
+                      />
                     </Dialog.Root>
                   </div>
                 </div>
