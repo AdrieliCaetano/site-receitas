@@ -29,7 +29,8 @@ class Database:
             username VARCHAR(20) NOT NULL,
             email  VARCHAR(100),
             nome VARCHAR(50) NOT NULL,
-            sobrenome VARCHAR(50) NOT NULL
+            sobrenome VARCHAR(50) NOT NULL, 
+            UNIQUE(nome,sobrenome)
         );
 
         CREATE TABLE IF NOT EXISTS receita(
