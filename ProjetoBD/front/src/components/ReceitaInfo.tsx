@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import {useState, useEffect} from "react"
 import AddIngrediente from "./AddIngrediente"
 import axios from "axios"
+import DeleteReceita from "./DeleteReceita"
 
 interface ReceitaInfoProps {
   receita_id: number
@@ -44,7 +45,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
             Informações da Receita
           </Dialog.Title>
           <div className="grid grid-cols-2 gap-5 w-full h-[30rem]">
-            <div className="flex flex-col gap-5 text-start text-[#fc939a] border-[3px] border-[#fc939a] p-3 relative">
+            <div className="flex flex-col gap-5 text-start text-[#fc939a] border-[3px] border-[#fc939a] p-3 relative mb-10">
               <p className="text-2xl uppercase font-bold text-center">
                 {props.nome_receita}
               </p>
@@ -65,40 +66,6 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                   return <p>{str}</p>
                 })}
               </div>
-              <div className="absolute w-full h-fit justify-center text-center left-0 bottom-2 flex gap-2">
-                <Dialog.Root
-                  open={openIngredientes}
-                  onOpenChange={setOpenIngredientes}
-                >
-                  <Dialog.Trigger
-                    title="Adicionar Ingrediente"
-                    className="rounded-[50%] bg-[#fc939a] mt-3 py-2 px-2 text-white hover:bg-[#ff7a83] font-bold text-xs shadow-sm shadow-black/25"
-                  >
-                    <Plus size={17} weight="bold" />
-                  </Dialog.Trigger>
-                  <AddIngrediente receita_id={props.receita_id} />
-                </Dialog.Root>
-
-                <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>
-                  <Dialog.Trigger
-                    title="Editar Receita"
-                    className="rounded-[50%] bg-gray-500 mt-3 py-2 px-2 text-white hover:bg-gray-700 font-bold text-xs shadow-sm shadow-black/25"
-                  >
-                    <Pencil size={17} weight="bold" />
-                  </Dialog.Trigger>
-                  {/* <LazyConfirmDeleteModal /> */}
-                </Dialog.Root>
-
-                <Dialog.Root open={openDeletar} onOpenChange={setOpenDeletar}>
-                  <Dialog.Trigger
-                    title="Excluir Receita"
-                    className="rounded-[50%] bg-red-500 mt-3 py-2 px-2 text-white hover:bg-red-700 font-bold text-xs shadow-sm shadow-black/25"
-                  >
-                    <Trash size={17} weight="bold" />
-                  </Dialog.Trigger>
-                  {/* <LazyConfirmDeleteModal /> */}
-                </Dialog.Root>
-              </div>
             </div>
             <div className="flex flex-col gap-10">
               <img
@@ -111,6 +78,43 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 <p>Tempo de preparo: {props.tempo_preparo} minutos</p>
                 <p className="text-base mt-5">Autor: {props.autor_id}</p>
               </div>
+            </div>
+            <div className="absolute flex flex-col w-fit h-fit right-10 bottom-2 gap-2">
+              <Dialog.Root
+                open={openIngredientes}
+                onOpenChange={setOpenIngredientes}
+              >
+                <Dialog.Trigger
+                  title="Adicionar Ingrediente"
+                  className="rounded-[50%] bg-[#fc939a] py-2 px-2 text-white hover:bg-[#ff7a83] font-bold text-xs shadow-sm shadow-black/25"
+                >
+                  <Plus size={17} weight="bold" />
+                </Dialog.Trigger>
+                <AddIngrediente receita_id={props.receita_id} />
+              </Dialog.Root>
+
+              <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>
+                <Dialog.Trigger
+                  title="Editar Receita"
+                  className="rounded-[50%] bg-gray-500 py-2 px-2 text-white hover:bg-gray-700 font-bold text-xs shadow-sm shadow-black/25"
+                >
+                  <Pencil size={17} weight="bold" />
+                </Dialog.Trigger>
+                {/* <LazyConfirmDeleteModal /> */}
+              </Dialog.Root>
+
+              <Dialog.Root open={openDeletar} onOpenChange={setOpenDeletar}>
+                <Dialog.Trigger
+                  title="Excluir Receita"
+                  className="rounded-[50%] bg-red-500 py-2 px-2 text-white hover:bg-red-700 font-bold text-xs shadow-sm shadow-black/25"
+                >
+                  <Trash size={17} weight="bold" />
+                </Dialog.Trigger>
+                <DeleteReceita
+                  receita_id={props.receita_id}
+                  nome_receita={props.nome_receita}
+                />
+              </Dialog.Root>
             </div>
           </div>
         </Dialog.Content>
