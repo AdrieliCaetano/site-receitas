@@ -115,6 +115,7 @@ function App() {
             return (
               <ReceitaCard
                 key={receita["id"]}
+                receita_id={receita["id"]}
                 autor_id={receita["autor"]}
                 categoria={receita["categoria"]}
                 link_imagem={receita["link_imagem"]}

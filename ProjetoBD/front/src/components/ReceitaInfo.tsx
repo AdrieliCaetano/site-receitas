@@ -1,8 +1,11 @@
 import {Plus, Pencil, Trash} from "@phosphor-icons/react"
 import * as Dialog from "@radix-ui/react-dialog"
-import {useState} from "react"
+import {useState, useEffect} from "react"
+import AddIngrediente from "./AddIngrediente"
+import axios from "axios"
 
 interface ReceitaInfoProps {
+  receita_id: number
   nome_receita: string
   tempo_preparo: number
   modo_preparo: string
@@ -16,6 +19,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
   const [openIngredientes, setOpenIngredientes] = useState(false)
   const [openEditar, setOpenEditar] = useState(false)
   const [openDeletar, setOpenDeletar] = useState(false)
+  const [ingredientes, setIngredientes] = useState([])
 
   console.log(props.modo_preparo)
 
@@ -23,6 +27,13 @@ function ReceitaInfo(props: ReceitaInfoProps) {
     const str = props.modo_preparo.split("\n")
     return str
   }
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/receitas/${props.receita_id}/ingredientes`)
+      .then((response) => response.data)
+      .then((data) => setIngredientes(data))
+  }, [])
 
   return (
     <>
@@ -39,6 +50,14 @@ function ReceitaInfo(props: ReceitaInfoProps) {
               </p>
               <div>
                 <p className="font-bold">Ingredientes</p>
+                {ingredientes.map((ingrediente) => {
+                  return (
+                    <div className="grid grid-cols-2 text-center">
+                      <p>{ingrediente["quantidade"]}</p>
+                      <p>{ingrediente["ingrediente"]}</p>
+                    </div>
+                  )
+                })}
               </div>
               <div>
                 <p className="font-bold">Modo de Preparo</p>
@@ -57,8 +76,9 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                   >
                     <Plus size={17} weight="bold" />
                   </Dialog.Trigger>
-                  {/* <LazyConfirmDeleteModal /> */}
+                  <AddIngrediente receita_id={props.receita_id} />
                 </Dialog.Root>
+
                 <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>
                   <Dialog.Trigger
                     title="Editar Receita"
@@ -68,6 +88,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                   </Dialog.Trigger>
                   {/* <LazyConfirmDeleteModal /> */}
                 </Dialog.Root>
+
                 <Dialog.Root open={openDeletar} onOpenChange={setOpenDeletar}>
                   <Dialog.Trigger
                     title="Excluir Receita"

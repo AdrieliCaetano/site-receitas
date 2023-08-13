@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import ReceitaInfo from "./ReceitaInfo"
 
 interface ReceitaCardProps {
+  receita_id: number
   nome_receita: string
   tempo_preparo: number
   modo_preparo: string
@@ -32,6 +33,7 @@ function ReceitaCard(props: ReceitaCardProps) {
             </Dialog.Trigger>
 
             <ReceitaInfo
+            receita_id={props.receita_id}
               autor_id={props.autor_id}
               categoria={props.categoria}
               link_imagem={props.link_imagem}
