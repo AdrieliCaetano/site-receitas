@@ -14,7 +14,7 @@ Este projeto consiste em um sistema web voltado para a criação e publicação 
     `CREATE DATABASE  receitadb`
 
     Instalar os [requirements](ProjetoBD/back/requirements.txt)  
-    Alterar informações sobre o banco de dados no arquivo [`app.py`](ProjetoBD/back/app.py) (linha 65)  
+    Alterar informações sobre o banco de dados no arquivo [`app.py`](ProjetoBD/back/app.py) (linha 66)  
     No diretório do back-end (site-receitas/ProjetoBD/back) aplicar o comando:
 
   ```bash
