@@ -3,12 +3,12 @@ import Cupcake from "./assets/cupcake-inicio.jpg"
 import * as Dialog from "@radix-ui/react-dialog"
 import "./styles/main.css"
 import ReceitaCard from "./components/RaceitaCard"
-import AddUsuarioModal from "./components/AddUsuarioModal"
-import AddCategoriaModal from "./components/AddCategoriaModal"
+import AddUsuario from "./components/AddUsuario"
+import AddCategoria from "./components/AddCategoria"
 import axios from "axios"
 import ListCategorias from "./components/ListCategorias"
 
-const LazyAddReceitaModal = lazy(() => import("./components/AddReceitaModal"))
+const LazyAddReceita = lazy(() => import("./components/AddReceita"))
 
 function App() {
   const [openAddCategoria, setOpenAddCategoria] = useState(false)
@@ -68,7 +68,7 @@ function App() {
                     Adicionar
                   </Dialog.Trigger>
 
-                  <AddCategoriaModal />
+                  <AddCategoria />
                 </Dialog.Root>
                 <Dialog.Root
                   open={openListCategoria}
@@ -92,14 +92,14 @@ function App() {
                     Adicionar
                   </Dialog.Trigger>
 
-                  <AddUsuarioModal />
+                  <AddUsuario />
                 </Dialog.Root>
                 <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
                   <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
                     Listar
                   </Dialog.Trigger>
 
-                  <AddUsuarioModal />
+                  <AddUsuario />
                 </Dialog.Root>
               </div>
             </div>
@@ -110,7 +110,7 @@ function App() {
 
               {openReceita && (
                 <Suspense>
-                  <LazyAddReceitaModal categorias={categorias} />
+                  <LazyAddReceita categorias={categorias} />
                 </Suspense>
               )}
             </Dialog.Root>
@@ -161,18 +161,6 @@ function App() {
               />
             )
           })}
-          {/* <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard />
-          <ReceitaCard /> */}
         </div>
       </div>
     </>

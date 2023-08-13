@@ -2,7 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import axios from "axios"
 import {useForm} from "react-hook-form"
 
-function AddCategoriaModal() {
+function AddCategoria() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async (data: any) => {
@@ -54,4 +54,4 @@ function AddCategoriaModal() {
   )
 }
 
-export default AddCategoriaModal
+export default AddCategoria

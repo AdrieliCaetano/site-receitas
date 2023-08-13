@@ -3,11 +3,11 @@ import * as Dialog from "@radix-ui/react-dialog"
 import {useForm} from "react-hook-form"
 import axios from "axios"
 
-interface AddReceitaModalProps {
+interface AddReceitaProps {
   categorias: {nome_categoria: string}[]
 }
 
-function AddReceitaModal(props: AddReceitaModalProps) {
+function AddReceita(props: AddReceitaProps) {
   const {register, handleSubmit, reset} = useForm()
   const [usuarios, setUsuarios] = useState([])
 
@@ -187,4 +187,4 @@ function AddReceitaModal(props: AddReceitaModalProps) {
   )
 }
 
-export default AddReceitaModal
+export default AddReceita
