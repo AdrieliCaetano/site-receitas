@@ -14,5 +14,5 @@ O domínio dessa aplicação se baseia em um sistema web voltado para a criaçã
 ## Modelagem dos dados
 
 - [Diagrama ER](diagrama_er.jpg)
-- [Modelo Relacional]()
+- [Modelo Relacional](Modelo-relacional.jpg)
   
