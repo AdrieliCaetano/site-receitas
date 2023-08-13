@@ -180,7 +180,8 @@ def delete_usuario(usuario_id):
         return jsonify({'message': 'Usuário excluído com sucesso'}), 200
     else:
         return jsonify({'error': 'Usuario nao encontrado'}), 404
-
+    
+@app.route('/receitas/<int:receita_id>/ingredientes', methods = ['GET'])
 def get_ingredientes_receita(receita_id):
     query = """
         SELECT ingrediente, quantidade
@@ -251,7 +252,6 @@ def create_receita():
     link_imagem = request.json.get('link_imagem')
     categoria_id =  request.json.get('categoria')
     autor_id = request.json.get('autor_id')
-    ingredientes = request.json['ingredientes']
 
     query =  """INSERT INTO  receita (nome_receita, tempo_preparo, modo_preparo, porcoes, link_imagem,             categoria_id, autor_id)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -259,13 +259,6 @@ def create_receita():
     
     db.cur.execute(query, (nome_receita, tempo_preparo, modo_preparo, porcoes, link_imagem,             categoria_id, autor_id),)
     id_receita = db.cur.fetchone()[0]
-    
-    for ingrediente in ingredientes:
-        ingrediente_nome = ingrediente['ingrediente']
-        quantidade = ingrediente['quantidade']
-        query_ingredientes = """INSERT INTO ingrediente_receita (receita_id, ingrediente, quantidade)
-                                VALUES (%s, %s, %s);"""
-        db.cur.execute(query_ingredientes, (id_receita, ingrediente_nome, quantidade),)
 
     return jsonify({'message': 'Receita criada com sucesso', 'id': id_receita}), 201
 
@@ -281,7 +274,6 @@ def update_receita(id_receita):
     link_imagem = request.json.get('link_imagem')
     categoria_id = request.json.get('categoria_id')
     autor_id = request.json.get('autor_id')
-    ingredientes = request.json.get('ingredientes')
 
     query_receita = """
         UPDATE receita
@@ -290,19 +282,6 @@ def update_receita(id_receita):
     """
     db.cur.execute(query_receita, (nome_receita, tempo_preparo, modo_preparo, porcoes, link_imagem, categoria_id, autor_id, id_receita))
 
-    query_deletar_ingredientes = """
-        DELETE FROM ingrediente_receita
-        WHERE receita_id = %s;
-    """
-    db.cur.execute(query_deletar_ingredientes, (id_receita,))
-
-    for ingrediente in ingredientes:
-        ingrediente_nome = ingrediente['ingrediente']
-        quantidade = ingrediente['quantidade']
-        query_ingredientes = """INSERT INTO ingrediente_receita (receita_id, ingrediente, quantidade)
-                                VALUES (%s, %s, %s);"""
-        db.cur.execute(query_ingredientes, (id_receita, ingrediente_nome, quantidade))
-
     return jsonify({'message': 'Receita atualizada com sucesso', 'id': id_receita}), 200
 
 @app.route('/receitas/<int:receita_id>', methods=['DELETE'])
@@ -310,7 +289,7 @@ def delete_receita(receita_id):
     query = """
         DELETE FROM receita
         WHERE id = %s
-        RETURNIG *;
+        RETURNING *;
     """
     db.cur.execute(query, (receita_id,))
     excluidos = db.cur.fetchall()
@@ -318,6 +297,55 @@ def delete_receita(receita_id):
         return jsonify({'message': 'Receita excluída com sucesso'}), 200
     else:
         return jsonify({'message': 'Receita não encontrada'}), 404
+
+@app.route('/receitas/<int:receita_id>/ingredientes', methods = ['POST'])
+def create_ingrediente(receita_id):
+    if not request.json or 'ingrediente' not in request.json or 'quantidade' not in request.json:
+        return jsonify({'error': 'Dados inválidos'}), 400
+    ingrediente = request.json['ingrediente']
+    quantidade = request.json['quantidade']
+    query = """INSERT INTO ingrediente_receita (receita_id, ingrediente, quantidade)
+                VALUES (%s, %s, %s);"""
+    db.cur.execute(query, (receita_id, ingrediente, quantidade))
+    return jsonify({'message': 'Ingrediente adicionado com sucesso'}),200
+
+@app.route('/receitas/<int:receita_id>/ingredientes/<string:ingrediente>', methods=['PUT'])
+def update_ingrediente(receita_id, ingrediente):
+    if not request.json:
+            return jsonify({'error': 'Dados inválidos'}), 400
+    novo = request.json.get('ingrediente')
+    quantidade = request.json.get('quantidade')
+
+    query_verificar_ingrediente = """
+            SELECT ir.*
+            FROM ingrediente_receita ir
+            WHERE ir.receita_id = %s AND ir.ingrediente = %s;
+        """
+    db.cur.execute(query_verificar_ingrediente, (receita_id, ingrediente))
+    result = db.cur.fetchone()
+    if not result:
+        return jsonify({'error': 'Ingrediente não encontrado nesta receita'}), 404
+    
+    query = """
+            UPDATE ingrediente_receita
+            SET ingrediente = %s, quantidade = %s
+            WHERE receita_id = %s AND ingrediente = %s;
+        """
+    db.cur.execute(query, (novo, quantidade, receita_id, ingrediente),)
+    return jsonify({'message': 'Ingrediente atualizado com sucesso'}), 200
+
+
+@app.route('/receitas/<int:receita_id>/ingredientes/<string:ingrediente>', methods = ['DELETE'])
+def delete_ingrediente(receita_id, ingrediente):
+    query = """ DELETE FROM ingrediente_receita
+                WHERE receita_id = %s AND ingrediente = %s
+                RETURNING *;"""
+    db.cur.execute(query, (receita_id, ingrediente))
+    excluidos = db.cur.fetchall()
+    if excluidos:
+        return jsonify({'message': 'Ingrediente excluído com sucesso'}), 200
+    else:
+        return jsonify({'message': 'Ingrediente não encontrado'}), 404
 
 @app.route('/receitas/categoria/<nome_categoria>', methods=['GET'])
 def get_receitas_por_categoria(nome_categoria):
