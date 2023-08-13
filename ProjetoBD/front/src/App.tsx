@@ -110,7 +110,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 bg-[#fc939a] w-[80%] h-fit gap-10 p-10 rounded-md">
+        <div className="grid grid-cols-3 bg-[#fc939a] w-[80%] h-fit min-h-[380px] gap-10 p-10 rounded-md">
           {receitas.map((receita) => {
             return (
               <ReceitaCard
