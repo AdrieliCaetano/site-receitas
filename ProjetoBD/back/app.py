@@ -107,7 +107,7 @@ def update_categoria(nome_categoria):
 
 @app.route('/categorias/<string:nome_categoria>', methods=['DELETE'])
 def delete_categoria(nome_categoria):
-    query = "DELETE FROM categoria WHERE nome_categoria = %s RETURNIG *;"
+    query = "DELETE FROM categoria WHERE nome_categoria = %s RETURNING *;"
     db.cur.execute(query, (nome_categoria,))
     excluidos = db.cur.fetchall()
     if excluidos:
