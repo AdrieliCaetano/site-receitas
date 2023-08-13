@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import axios from "axios"
 import {Pencil, Trash} from "@phosphor-icons/react"
+import EditCategoria from "./EditCategoria"
 
 function ListCategorias() {
   const [categorias, setCategorias] = useState([])
@@ -37,7 +38,7 @@ function ListCategorias() {
                       >
                         <Pencil size={17} weight="bold" />
                       </Dialog.Trigger>
-                      {/* <LazyConfirmDeleteModal /> */}
+                      <EditCategoria nome_categoria={categoria["nome_categoria"]} />
                     </Dialog.Root>
 
                     <Dialog.Root
