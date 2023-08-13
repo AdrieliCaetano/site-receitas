@@ -6,11 +6,13 @@ import ReceitaCard from "./components/RaceitaCard"
 import AddUsuarioModal from "./components/AddUsuarioModal"
 import AddCategoriaModal from "./components/AddCategoriaModal"
 import axios from "axios"
+import ListCategorias from "./components/ListCategorias"
 
 const LazyAddReceitaModal = lazy(() => import("./components/AddReceitaModal"))
 
 function App() {
-  const [openCategoria, setOpenCategoria] = useState(false)
+  const [openAddCategoria, setOpenAddCategoria] = useState(false)
+  const [openListCategoria, setOpenListCategoria] = useState(false)
   const [openReceita, setOpenReceita] = useState(false)
   const [openUsuario, setOpenUsuario] = useState(false)
   const [categorias, setCategorias] = useState([])
@@ -31,7 +33,6 @@ function App() {
       .then((data) => setReceitas(data))
   }, [])
 
-  console.log(receitas)
   return (
     <>
       <div className="bg-[#fc939a] h-screen grid grid-cols-2 p-10 gap-10">
@@ -54,20 +55,54 @@ function App() {
       <div className="bg-yellow-100 h-fit flex flex-row gap-8 p-8">
         <div className="flex flex-col w-[20%] items-center gap-3">
           <div className="flex flex-col w-full items-center gap-3">
-            <Dialog.Root open={openCategoria} onOpenChange={setOpenCategoria}>
-              <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
-                Adicionar Categoria
-              </Dialog.Trigger>
+            <div className="flex flex-col text-center w-full border-2 border-[#fc939a] p-2 gap-2 rounded-lg">
+              <p className="text-[#fc939a] uppercase font-bold text-xl">
+                Categorias
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <Dialog.Root
+                  open={openAddCategoria}
+                  onOpenChange={setOpenAddCategoria}
+                >
+                  <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                    Adicionar
+                  </Dialog.Trigger>
 
-              <AddCategoriaModal />
-            </Dialog.Root>
-            <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
-              <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
-                Adicionar Usuário
-              </Dialog.Trigger>
+                  <AddCategoriaModal />
+                </Dialog.Root>
+                <Dialog.Root
+                  open={openListCategoria}
+                  onOpenChange={setOpenListCategoria}
+                >
+                  <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                    Listar
+                  </Dialog.Trigger>
 
-              <AddUsuarioModal />
-            </Dialog.Root>
+                  <ListCategorias />
+                </Dialog.Root>
+              </div>
+            </div>
+            <div className="flex flex-col text-center w-full border-2 border-[#fc939a] p-2 gap-2 rounded-lg">
+              <p className="text-[#fc939a] uppercase font-bold text-xl">
+                Usuários
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
+                  <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                    Adicionar
+                  </Dialog.Trigger>
+
+                  <AddUsuarioModal />
+                </Dialog.Root>
+                <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
+                  <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
+                    Listar
+                  </Dialog.Trigger>
+
+                  <AddUsuarioModal />
+                </Dialog.Root>
+              </div>
+            </div>
             <Dialog.Root open={openReceita} onOpenChange={setOpenReceita}>
               <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
                 Adicionar Receita

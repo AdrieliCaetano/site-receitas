@@ -22,8 +22,6 @@ function ReceitaInfo(props: ReceitaInfoProps) {
   const [openDeletar, setOpenDeletar] = useState(false)
   const [ingredientes, setIngredientes] = useState([])
 
-  console.log(props.modo_preparo)
-
   const formataModo = () => {
     const str = props.modo_preparo.split("\n")
     return str
@@ -50,10 +48,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 {props.nome_receita}
               </p>
               <div>
-                <p className="font-bold">Ingredientes</p>
+                <p className="font-bold uppercase">Ingredientes</p>
                 {ingredientes.map((ingrediente) => {
                   return (
-                    <div className="grid grid-cols-2 text-center">
+                    <div className="grid grid-cols-2 text-start">
                       <p>{ingrediente["quantidade"]}</p>
                       <p>{ingrediente["ingrediente"]}</p>
                     </div>
@@ -61,7 +59,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 })}
               </div>
               <div>
-                <p className="font-bold">Modo de Preparo</p>
+                <p className="font-bold uppercase">Modo de Preparo</p>
                 {formataModo().map((str) => {
                   return <p>{str}</p>
                 })}
