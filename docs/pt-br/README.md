@@ -10,5 +10,5 @@ Este projeto consiste em um sistema web voltado para a criação e publicação 
 - React
 
   ## Documentação
-- [Domínio](/domínio.md)
+- [Domínio](domínio.md)
   
