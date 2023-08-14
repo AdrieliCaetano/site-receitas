@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import axios from "axios"
 import {Pencil, Trash} from "@phosphor-icons/react"
+import EditUsuario from "./EditUsuario"
 
 function ListUsuarios() {
   const [usuarios, setUsuarios] = useState([])
@@ -37,9 +38,10 @@ function ListUsuarios() {
                       >
                         <Pencil size={17} weight="bold" />
                       </Dialog.Trigger>
-                      {/* <EditCategoria
-                        nome_categoria={categoria["nome_categoria"]}
-                      /> */}
+                      <EditUsuario
+                        usuario_id={usuario["usuario_id"]}
+                        nome={usuario["nome"]}
+                      />
                     </Dialog.Root>
 
                     <Dialog.Root
