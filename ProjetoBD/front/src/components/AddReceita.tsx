@@ -57,15 +57,12 @@ function AddReceita(props: AddReceitaProps) {
                     AUTOR
                   </label>
                   <select
-                    {...register("autor", {required: true})}
+                    {...register("autor_id", {required: true})}
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
                     {usuarios.map((usuario) => (
-                      <option
-                        key={usuario["username"]}
-                        value={(usuario["username"], usuario["id"])}
-                      >
+                      <option key={usuario["username"]} value={usuario["id"]}>
                         {usuario["nome"]} {usuario["sobrenome"]}
                       </option>
                     ))}

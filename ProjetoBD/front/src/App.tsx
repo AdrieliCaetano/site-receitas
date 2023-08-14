@@ -13,7 +13,7 @@ const LazyAddReceita = lazy(() => import("./components/AddReceita"))
 
 interface ReceitaProps {
   id: number
-  autor_id: number
+  autor: number
   categoria: string
   nome_receita: string
   tempo_preparo: number
@@ -178,7 +178,7 @@ function App() {
                 <ReceitaCard
                   key={receita["id"]}
                   receita_id={receita["id"]}
-                  autor_id={receita["autor_id"]}
+                  autor_id={receita["autor"]}
                   categoria={receita["categoria"]}
                   link_imagem={receita["link_imagem"]}
                   modo_preparo={receita["modo_preparo"]}

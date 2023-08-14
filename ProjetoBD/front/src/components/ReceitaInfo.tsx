@@ -22,6 +22,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
   const [openEditar, setOpenEditar] = useState(false)
   const [openDeletar, setOpenDeletar] = useState(false)
   const [ingredientes, setIngredientes] = useState([])
+  const [usuario, setUsuario] = useState()
 
   const formataModo = () => {
     const str = props.modo_preparo.split("\n")
@@ -33,6 +34,13 @@ function ReceitaInfo(props: ReceitaInfoProps) {
       .get(`http://localhost:5000/receitas/${props.receita_id}/ingredientes`)
       .then((response) => response.data)
       .then((data) => setIngredientes(data))
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/usuarios/${props.autor_id}`)
+      .then((response) => response.data)
+      .then((data) => setUsuario(data))
   }, [])
 
   return (
@@ -78,7 +86,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
               <div className="flex flex-col text-center text-xl font-bold text-[#fc939a]">
                 <p>Rende {props.porcoes} porções</p>
                 <p>Tempo de preparo: {props.tempo_preparo} minutos</p>
-                <p className="text-base mt-5">Autor: {props.autor_id}</p>
+                <p className="text-base mt-5">
+                  Autor: {usuario === undefined ? "" : usuario["nome"]}{" "}
+                  {usuario === undefined ? "" : usuario["sobrenome"]}
+                </p>
               </div>
             </div>
             <div className="absolute flex flex-col w-fit h-fit right-10 bottom-2 gap-2">
