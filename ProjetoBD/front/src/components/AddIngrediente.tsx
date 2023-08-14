@@ -29,7 +29,6 @@ function AddIngrediente(props: AddIngredienteProps) {
     }
   }
 
-  console.log(props.receita_id)
   return (
     <>
       <Dialog.Portal>

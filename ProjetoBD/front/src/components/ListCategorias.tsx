@@ -17,7 +17,6 @@ function ListCategorias() {
       .then((data) => setCategorias(data))
   }, [])
 
-  console.log(categorias)
   return (
     <>
       <Dialog.Portal>
@@ -29,7 +28,10 @@ function ListCategorias() {
           <div className="w-full h-full text-[#fc939a] flex flex-col gap-2">
             {categorias.map((categoria) => {
               return (
-                <div className="flex py-4 border-b-2 border-[#fc939a] rounded-lg text-xl relative">
+                <div
+                  className="flex py-4 border-b-2 border-[#fc939a] rounded-lg text-xl relative"
+                  key={categoria["nome_categoria"]}
+                >
                   {categoria["nome_categoria"]}
                   <div className="flex flex-row gap-1 absolute right-0">
                     <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>

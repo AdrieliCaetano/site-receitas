@@ -12,14 +12,14 @@ function AddReceita(props: AddReceitaProps) {
   const [usuarios, setUsuarios] = useState([])
 
   const onSubmit = async (data: any) => {
-    // console.log(data)
+    console.log(data["autor"])
 
     try {
       axios
         .post("http://127.0.0.1:5000/receitas", data)
         .then((response) => response.data)
         .then(() => alert(`Receita criada com sucesso.`))
-        .then(() => window.location.reload())
+        // .then(() => window.location.reload())
     } catch (error) {
       throw new Error(`Erro no back-end.\n${error}`)
     } finally {

@@ -15,7 +15,7 @@ interface ReceitaCardProps {
 
 function ReceitaCard(props: ReceitaCardProps) {
   const [open, setOpen] = useState(false)
-  console.log(props)
+
   return (
     <>
       <div className="bg-yellow-100 h-full rounded-md shadow-lg">

@@ -51,7 +51,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 <p className="font-bold uppercase">Ingredientes</p>
                 {ingredientes.map((ingrediente) => {
                   return (
-                    <div className="grid grid-cols-2 text-start">
+                    <div
+                      className="grid grid-cols-2 text-start"
+                      key={ingrediente["ingrediente"]}
+                    >
                       <p>{ingrediente["quantidade"]}</p>
                       <p>{ingrediente["ingrediente"]}</p>
                     </div>
@@ -61,7 +64,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
               <div>
                 <p className="font-bold uppercase">Modo de Preparo</p>
                 {formataModo().map((str) => {
-                  return <p>{str}</p>
+                  return <p key={JSON.stringify(str)}>{str}</p>
                 })}
               </div>
             </div>

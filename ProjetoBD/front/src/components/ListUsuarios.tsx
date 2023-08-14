@@ -17,7 +17,6 @@ function ListUsuarios() {
       .then((data) => setUsuarios(data))
   }, [])
 
-  console.log(usuarios)
   return (
     <>
       <Dialog.Portal>
@@ -29,7 +28,7 @@ function ListUsuarios() {
           <div className="w-full h-full text-[#fc939a] flex flex-col gap-2">
             {usuarios.map((usuario) => {
               return (
-                <div className="flex py-4 border-b-2 border-[#fc939a] rounded-lg text-xl relative">
+                <div className="flex py-4 border-b-2 border-[#fc939a] rounded-lg text-xl relative" key={usuario["id"]}>
                   {usuario["nome"]} {usuario["sobrenome"]}
                   <div className="flex flex-row gap-1 absolute right-0">
                     <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>
