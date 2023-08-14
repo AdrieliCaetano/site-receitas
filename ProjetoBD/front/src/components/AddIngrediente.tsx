@@ -74,7 +74,7 @@ function AddIngrediente(props: AddIngredienteProps) {
                 />
               </div>
             </div>
-            <button className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#01141f]/50 shadow-md shadow-black/25 absolute right-0 uppercase">
+            <button className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#ff767f] shadow-md shadow-black/25 absolute right-0 uppercase">
               Adicionar
             </button>
           </form>

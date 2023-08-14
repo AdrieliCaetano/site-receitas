@@ -183,7 +183,7 @@ function EditReceita(props: EditReceitaProps) {
             </div>
 
             <button
-              className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#01141f]/50 shadow-md shadow-black/25 absolute right-0 bottom-4 uppercase"
+              className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#ff767f] shadow-md shadow-black/25 absolute right-0 bottom-4 uppercase"
               type="submit"
             >
               Adicionar
