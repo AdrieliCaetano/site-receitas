@@ -11,6 +11,17 @@ import ListUsuarios from "./components/ListUsuarios"
 
 const LazyAddReceita = lazy(() => import("./components/AddReceita"))
 
+interface ReceitaProps {
+  id: number
+  autor_id: number
+  categoria: string
+  nome_receita: string
+  tempo_preparo: number
+  modo_preparo: string
+  porcoes: number
+  link_imagem: string
+}
+
 function App() {
   const [openAddCategoria, setOpenAddCategoria] = useState(false)
   const [openListCategoria, setOpenListCategoria] = useState(false)
@@ -18,8 +29,8 @@ function App() {
   const [openAddUsuario, setOpenAddUsuario] = useState(false)
   const [openListUsuario, setOpenListUsuario] = useState(false)
   const [categorias, setCategorias] = useState([])
-  const [receitas, setReceitas] = useState([])
-  const [filtro, setFiltro] = useState("")
+  const [receitas, setReceitas] = useState<ReceitaProps[]>([])
+  const [filtro, setFiltro] = useState("Todas")
 
   useEffect(() => {
     axios
@@ -35,6 +46,7 @@ function App() {
       .then((data) => setReceitas(data))
   }, [])
 
+  console.log(receitas)
   return (
     <>
       <div className="bg-[#fc939a] h-screen grid grid-cols-2 p-10 gap-10">
@@ -155,21 +167,27 @@ function App() {
           </div>
         </div>
         <div className="grid grid-cols-3 bg-[#fc939a] w-[80%] h-fit min-h-[380px] gap-10 p-10 rounded-md">
-          {receitas.map((receita) => {
-            return (
-              <ReceitaCard
-                key={receita["id"]}
-                receita_id={receita["id"]}
-                autor_id={receita["autor"]}
-                categoria={receita["categoria"]}
-                link_imagem={receita["link_imagem"]}
-                modo_preparo={receita["modo_preparo"]}
-                nome_receita={receita["nome_receita"]}
-                porcoes={receita["porcoes"]}
-                tempo_preparo={receita["tempo_preparo"]}
-              />
-            )
-          })}
+          {receitas
+            ?.filter((receita) => {
+              return filtro === "Todas"
+                ? receita
+                : receita["categoria"].includes(filtro)
+            })
+            .map((receita) => {
+              return (
+                <ReceitaCard
+                  key={receita["id"]}
+                  receita_id={receita["id"]}
+                  autor_id={receita["autor_id"]}
+                  categoria={receita["categoria"]}
+                  link_imagem={receita["link_imagem"]}
+                  modo_preparo={receita["modo_preparo"]}
+                  nome_receita={receita["nome_receita"]}
+                  porcoes={receita["porcoes"]}
+                  tempo_preparo={receita["tempo_preparo"]}
+                />
+              )
+            })}
         </div>
       </div>
     </>
