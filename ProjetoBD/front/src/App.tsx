@@ -7,6 +7,7 @@ import AddUsuario from "./components/AddUsuario"
 import AddCategoria from "./components/AddCategoria"
 import axios from "axios"
 import ListCategorias from "./components/ListCategorias"
+import ListUsuarios from "./components/ListUsuarios"
 
 const LazyAddReceita = lazy(() => import("./components/AddReceita"))
 
@@ -14,7 +15,8 @@ function App() {
   const [openAddCategoria, setOpenAddCategoria] = useState(false)
   const [openListCategoria, setOpenListCategoria] = useState(false)
   const [openReceita, setOpenReceita] = useState(false)
-  const [openUsuario, setOpenUsuario] = useState(false)
+  const [openAddUsuario, setOpenAddUsuario] = useState(false)
+  const [openListUsuario, setOpenListUsuario] = useState(false)
   const [categorias, setCategorias] = useState([])
   const [receitas, setReceitas] = useState([])
   const [filtro, setFiltro] = useState("")
@@ -87,19 +89,26 @@ function App() {
                 Usuários
               </p>
               <div className="grid grid-cols-2 gap-2">
-                <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
+                <Dialog.Root
+                  open={openAddUsuario}
+                  onOpenChange={setOpenAddUsuario}
+                >
                   <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
                     Adicionar
                   </Dialog.Trigger>
 
                   <AddUsuario />
                 </Dialog.Root>
-                <Dialog.Root open={openUsuario} onOpenChange={setOpenUsuario}>
+
+                <Dialog.Root
+                  open={openListUsuario}
+                  onOpenChange={setOpenListUsuario}
+                >
                   <Dialog.Trigger className="bg-[#fc939a] py-4 w-full uppercase font-bold hover:bg-[#ff767f] text-white rounded-md">
                     Listar
                   </Dialog.Trigger>
 
-                  <AddUsuario />
+                  <ListUsuarios />
                 </Dialog.Root>
               </div>
             </div>
