@@ -37,7 +37,7 @@ class Database:
             id SERIAL PRIMARY KEY,
             nome_receita VARCHAR(50) NOT NULL,
             tempo_preparo INTEGER NOT NULL,
-            modo_preparo VARCHAR(1000) NOT NULL,
+            modo_preparo VARCHAR(10000) NOT NULL,
             porcoes INTEGER,
             link_imagem VARCHAR(100),
             categoria_id VARCHAR(50),
