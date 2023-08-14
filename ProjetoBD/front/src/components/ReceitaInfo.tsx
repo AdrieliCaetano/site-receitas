@@ -4,6 +4,7 @@ import {useState, useEffect} from "react"
 import AddIngrediente from "./AddIngrediente"
 import axios from "axios"
 import DeleteReceita from "./DeleteReceita"
+import EditReceita from "./EditReceita"
 
 interface ReceitaInfoProps {
   receita_id: number
@@ -101,7 +102,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 >
                   <Pencil size={17} weight="bold" />
                 </Dialog.Trigger>
-                {/* <LazyConfirmDeleteModal /> */}
+                <EditReceita
+                  nome_receita={props.nome_receita}
+                  receita_id={props.receita_id}
+                />
               </Dialog.Root>
 
               <Dialog.Root open={openDeletar} onOpenChange={setOpenDeletar}>
