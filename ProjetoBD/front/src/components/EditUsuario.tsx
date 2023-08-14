@@ -43,6 +43,7 @@ function EditUsuario(props: EditUsuarioProps) {
                   Nome
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("nome", {required: true})}
@@ -58,6 +59,7 @@ function EditUsuario(props: EditUsuarioProps) {
                   Sobrenome
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("sobrenome", {required: true})}
@@ -73,6 +75,7 @@ function EditUsuario(props: EditUsuarioProps) {
                   Nome De usuário
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("username", {required: true})}
@@ -88,6 +91,7 @@ function EditUsuario(props: EditUsuarioProps) {
                   E-mail
                 </label>
                 <input
+                  autoComplete="off"
                   type="email"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("email", {required: true})}

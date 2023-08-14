@@ -13,7 +13,7 @@ function AddCategoria() {
         .then(() => alert(`Categoria criada com sucesso.`))
         .then(() => window.location.reload())
     } catch (error) {
-      throw new Error(`Erro no back-end.\n${error}`);
+      throw new Error(`Erro no back-end.\n${error}`)
     } finally {
       reset()
     }
@@ -38,6 +38,7 @@ function AddCategoria() {
                   Descrição
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("nome_categoria", {required: true})}

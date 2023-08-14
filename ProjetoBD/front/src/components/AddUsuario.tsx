@@ -10,6 +10,7 @@ function AddUsuarioModal() {
       axios
         .post("http://127.0.0.1:5000/usuarios", data)
         .then((response) => response.data)
+        .then((data) => console.log(data))
         .then(() => alert(`Usuário criado com sucesso.`))
         .then(() => window.location.reload())
     } catch (error) {
@@ -38,6 +39,7 @@ function AddUsuarioModal() {
                   Nome
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("nome", {required: true})}
@@ -53,6 +55,7 @@ function AddUsuarioModal() {
                   Sobrenome
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("sobrenome", {required: true})}
@@ -68,6 +71,7 @@ function AddUsuarioModal() {
                   Nome De usuário
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("username", {required: true})}
@@ -83,6 +87,7 @@ function AddUsuarioModal() {
                   E-mail
                 </label>
                 <input
+                  autoComplete="off"
                   type="email"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("email", {required: true})}

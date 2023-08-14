@@ -51,6 +51,7 @@ function AddIngrediente(props: AddIngredienteProps) {
                   Ingrediente
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("ingrediente", {required: true})}
@@ -66,6 +67,7 @@ function AddIngrediente(props: AddIngredienteProps) {
                   Quantidade
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("quantidade", {required: true})}

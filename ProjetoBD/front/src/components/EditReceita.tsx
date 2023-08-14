@@ -85,6 +85,7 @@ function EditReceita(props: EditReceitaProps) {
                     NOME DA RECEITA
                   </label>
                   <input
+                    autoComplete="off"
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("nome_receita", {required: true})}
@@ -100,6 +101,7 @@ function EditReceita(props: EditReceitaProps) {
                     LINK PARA IMAGEM
                   </label>
                   <input
+                    autoComplete="off"
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("link_imagem", {required: true})}
@@ -139,6 +141,7 @@ function EditReceita(props: EditReceitaProps) {
                     Tempo de Preparo (em minutos)
                   </label>
                   <input
+                    autoComplete="off"
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("tempo_preparo", {required: true})}
@@ -156,6 +159,7 @@ function EditReceita(props: EditReceitaProps) {
                     Porções
                   </label>
                   <input
+                    autoComplete="off"
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("porcoes", {required: true})}

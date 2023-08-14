@@ -19,7 +19,7 @@ function AddReceita(props: AddReceitaProps) {
         .post("http://127.0.0.1:5000/receitas", data)
         .then((response) => response.data)
         .then(() => alert(`Receita criada com sucesso.`))
-        // .then(() => window.location.reload())
+        .then(() => window.location.reload())
     } catch (error) {
       throw new Error(`Erro no back-end.\n${error}`)
     } finally {
@@ -81,6 +81,7 @@ function AddReceita(props: AddReceitaProps) {
                     NOME DA RECEITA
                   </label>
                   <input
+                    autoComplete="off"
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("nome_receita", {required: true})}
@@ -96,6 +97,7 @@ function AddReceita(props: AddReceitaProps) {
                     LINK PARA IMAGEM
                   </label>
                   <input
+                    autoComplete="off"
                     type="text"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("link_imagem", {required: true})}
@@ -135,6 +137,7 @@ function AddReceita(props: AddReceitaProps) {
                     Tempo de Preparo (em minutos)
                   </label>
                   <input
+                    autoComplete="off"
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("tempo_preparo", {required: true})}
@@ -152,6 +155,7 @@ function AddReceita(props: AddReceitaProps) {
                     Porções
                   </label>
                   <input
+                    autoComplete="off"
                     type="number"
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                     {...register("porcoes", {required: true})}

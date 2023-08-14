@@ -42,6 +42,7 @@ function EditCategoria(props: EditCategoriaProps) {
                   Descrição
                 </label>
                 <input
+                  autoComplete="off"
                   type="text"
                   className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   {...register("nome_categoria", {required: true})}
