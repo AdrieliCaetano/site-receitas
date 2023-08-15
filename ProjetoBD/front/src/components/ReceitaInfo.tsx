@@ -5,6 +5,7 @@ import AddIngrediente from "./AddIngrediente"
 import axios from "axios"
 import DeleteReceita from "./DeleteReceita"
 import EditReceita from "./EditReceita"
+import EditIngrediente from "./EditIngrediente"
 
 interface ReceitaInfoProps {
   receita_id: number
@@ -19,8 +20,10 @@ interface ReceitaInfoProps {
 
 function ReceitaInfo(props: ReceitaInfoProps) {
   const [openIngredientes, setOpenIngredientes] = useState(false)
-  const [openEditar, setOpenEditar] = useState(false)
-  const [openDeletar, setOpenDeletar] = useState(false)
+  const [openEditarIngrediente, setOpenEditarIngrediente] = useState(false)
+  const [openEditarReceita, setOpenEditarReceita] = useState(false)
+  const [openDeletarIngrediente, setOpenDeletarIngrediente] = useState(false)
+  const [openDeletarReceita, setOpenDeletarReceita] = useState(false)
   const [ingredientes, setIngredientes] = useState([])
   const [usuario, setUsuario] = useState()
 
@@ -61,11 +64,44 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 {ingredientes.map((ingrediente) => {
                   return (
                     <div
-                      className="grid grid-cols-2 text-start"
+                      className="grid grid-cols-3 text-start"
                       key={ingrediente["ingrediente"]}
                     >
                       <p>{ingrediente["quantidade"]}</p>
                       <p>{ingrediente["ingrediente"]}</p>
+                      <div className="justify-end flex self-start">
+                        <Dialog.Root
+                          open={openEditarIngrediente}
+                          onOpenChange={setOpenEditarIngrediente}
+                        >
+                          <Dialog.Trigger
+                            title="Editar Ingrediente"
+                            className="rounded-[50%] bg-gray-500 py-2 px-2 text-white hover:bg-gray-700 font-bold text-xs shadow-sm shadow-black/25"
+                          >
+                            <Pencil size={10} weight="bold" />
+                          </Dialog.Trigger>
+                          <EditIngrediente
+                            receita_id={props.receita_id}
+                            ingrediente={ingrediente["ingrediente"]}
+                          />
+                        </Dialog.Root>
+
+                        <Dialog.Root
+                          open={openDeletarIngrediente}
+                          onOpenChange={setOpenDeletarIngrediente}
+                        >
+                          <Dialog.Trigger
+                            title="Excluir Ingrediente"
+                            className="rounded-[50%] bg-red-500 py-2 px-2 text-white hover:bg-red-700 font-bold text-xs shadow-sm shadow-black/25"
+                          >
+                            <Trash size={10} weight="bold" />
+                          </Dialog.Trigger>
+                          <DeleteReceita
+                            receita_id={props.receita_id}
+                            nome_receita={props.nome_receita}
+                          />
+                        </Dialog.Root>
+                      </div>
                     </div>
                   )
                 })}
@@ -106,7 +142,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 <AddIngrediente receita_id={props.receita_id} />
               </Dialog.Root>
 
-              <Dialog.Root open={openEditar} onOpenChange={setOpenEditar}>
+              <Dialog.Root open={openEditarReceita} onOpenChange={setOpenEditarReceita}>
                 <Dialog.Trigger
                   title="Editar Receita"
                   className="rounded-[50%] bg-gray-500 py-2 px-2 text-white hover:bg-gray-700 font-bold text-xs shadow-sm shadow-black/25"
@@ -119,7 +155,7 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 />
               </Dialog.Root>
 
-              <Dialog.Root open={openDeletar} onOpenChange={setOpenDeletar}>
+              <Dialog.Root open={openDeletarReceita} onOpenChange={setOpenDeletarReceita}>
                 <Dialog.Trigger
                   title="Excluir Receita"
                   className="rounded-[50%] bg-red-500 py-2 px-2 text-white hover:bg-red-700 font-bold text-xs shadow-sm shadow-black/25"
