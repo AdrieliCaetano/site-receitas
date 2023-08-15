@@ -64,7 +64,7 @@ function EditReceita(props: EditReceitaProps) {
                     AUTOR
                   </label>
                   <select
-                    {...register("autor", {required: true})}
+                    {...register("autor_id", {required: true})}
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
@@ -117,7 +117,7 @@ function EditReceita(props: EditReceitaProps) {
                     CATEGORIA
                   </label>
                   <select
-                    {...register("categoria", {required: true})}
+                    {...register("categoria_id", {required: true})}
                     className="bg-gray-200 text-black rounded py-3 px-4 shadow-xl"
                   >
                     <option value=""></option>
@@ -186,7 +186,7 @@ function EditReceita(props: EditReceitaProps) {
               className="bg-[#fc939a] text-base font-bold rounded-md p-3 text-white hover:bg-[#ff767f] shadow-md shadow-black/25 absolute right-0 bottom-4 uppercase"
               type="submit"
             >
-              Adicionar
+              Editar
             </button>
           </form>
         </Dialog.Content>
