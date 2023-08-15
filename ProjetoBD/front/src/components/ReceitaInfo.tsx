@@ -6,6 +6,7 @@ import axios from "axios"
 import DeleteReceita from "./DeleteReceita"
 import EditReceita from "./EditReceita"
 import EditIngrediente from "./EditIngrediente"
+import DeleteIngrediente from "./DeleteIngrediente"
 
 interface ReceitaInfoProps {
   receita_id: number
@@ -96,9 +97,9 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                           >
                             <Trash size={10} weight="bold" />
                           </Dialog.Trigger>
-                          <DeleteReceita
+                          <DeleteIngrediente
                             receita_id={props.receita_id}
-                            nome_receita={props.nome_receita}
+                            ingrediente={ingrediente["ingrediente"]}
                           />
                         </Dialog.Root>
                       </div>
@@ -142,7 +143,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 <AddIngrediente receita_id={props.receita_id} />
               </Dialog.Root>
 
-              <Dialog.Root open={openEditarReceita} onOpenChange={setOpenEditarReceita}>
+              <Dialog.Root
+                open={openEditarReceita}
+                onOpenChange={setOpenEditarReceita}
+              >
                 <Dialog.Trigger
                   title="Editar Receita"
                   className="rounded-[50%] bg-gray-500 py-2 px-2 text-white hover:bg-gray-700 font-bold text-xs shadow-sm shadow-black/25"
@@ -155,7 +159,10 @@ function ReceitaInfo(props: ReceitaInfoProps) {
                 />
               </Dialog.Root>
 
-              <Dialog.Root open={openDeletarReceita} onOpenChange={setOpenDeletarReceita}>
+              <Dialog.Root
+                open={openDeletarReceita}
+                onOpenChange={setOpenDeletarReceita}
+              >
                 <Dialog.Trigger
                   title="Excluir Receita"
                   className="rounded-[50%] bg-red-500 py-2 px-2 text-white hover:bg-red-700 font-bold text-xs shadow-sm shadow-black/25"
